@@ -1,118 +1,146 @@
-import random
+"""Representación de grafos y línea base aleatoria (código del equipo).
+
+Depende del paquete docente ``busqueda`` versión 1.0.0, que no se modifica.
+"""
+
 import json
+import random
+import time
+from pathlib import Path
+
+from busqueda import evaluar, validar
+
+AGENTES = ("B1", "U1", "A1")
+
 
 class CromosomaGrafo:
     def __init__(self):
-        # 1. EL IDIOMA GENÉTICO: Matriz 6x6 inicializada en ceros
+        # Matriz dirigida de seis nodos. Cero significa ausencia de arista.
         self.matriz = [[0 for _ in range(6)] for _ in range(6)]
 
-    def generar_grafo_aleatorio(self):
-        # Llenamos la matriz con algunos caminos al azar para empezar
-        self.matriz = [[0 for _ in range(6)] for _ in range(6)]
+    def generar_grafo_aleatorio(self, rng=None):
+        if rng is None:
+            rng = random
 
+        self.matriz = [[0 for _ in range(6)] for _ in range(6)]
         for i in range(6):
             for j in range(6):
-                if j != i:
-                    # 30% de probabilidad de crear una arista con costo 1-9
-                    if random.random() < 0.3:
-                        self.matriz[i][j] = random.randint(1, 9)
+                if i != j and rng.random() < 0.3:
+                    self.matriz[i][j] = rng.randint(1, 9)
 
     def obtener_formato_profesor(self):
-        # 2. EL ADAPTADOR: Leemos la matriz y armamos la lista
-        aristas_formato_final = []
-
+        aristas = []
         for origen in range(6):
             for destino in range(6):
                 costo = self.matriz[origen][destino]
-
-                # Si el costo es mayor a 0, guardamos la arista
                 if costo > 0:
-                    aristas_formato_final.append([origen, destino, costo])
+                    aristas.append([origen, destino, costo])
 
-        # 3. EL IDIOMA DEL PROFESOR: Devolvemos el diccionario exacto que pide
-        return {
-            "n": 6,
-            "inicio": 0,
-            "meta": 5,
-            "aristas": aristas_formato_final
-        }
+        return {"n": 6, "inicio": 0, "meta": 5, "aristas": aristas}
 
 
-def ejecutar_linea_base_aleatoria(semilla, presupuesto=1000):
-    # 1. Controlar la fuente de aleatoriedad (Requerimiento 8)
-    random.seed(semilla)
+def ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000, limite_expansiones=100):
+    """Evalúa grafos independientes; no es el algoritmo genético."""
+    rng = random.Random(semilla)
+    carpeta = Path("resultados")
+    carpeta.mkdir(exist_ok=True)
 
-    # Variables para el registro experimental (Requerimiento 9)
-    primer_hallazgo = None
-    grafos_evaluados = 0
+    prefijo = f"aleatoria_semilla_{semilla}"
+    ruta_detalle = carpeta / f"{prefijo}_evaluaciones.jsonl"
+    ruta_resumen = carpeta / f"{prefijo}_resumen.json"
 
-    print(f"--- Iniciando Búsqueda Aleatoria (Semilla: {semilla}) ---")
+    primeros_hallazgos = {agente: None for agente in AGENTES}
+    hallazgos_acumulados = {agente: 0 for agente in AGENTES}
+    incidencias = {agente: {"limite": 0, "error": 0} for agente in AGENTES}
+    claves_distintas = set()
+    progreso = []
+    inicio = time.perf_counter()
 
-    for evaluacion_actual in range(1, presupuesto + 1):
-        # 2. Generar candidato desde cero usando la misma distribución (Requerimiento 6)
-        candidato = CromosomaGrafo()
-        candidato.generar_grafo_aleatorio()
-        grafos_evaluados += 1
+    print(f"Iniciando línea base aleatoria | semilla={semilla} | presupuesto={presupuesto}")
 
-        # 3. Adaptar al formato JSON del profesor
-        grafo_json = candidato.obtener_formato_profesor()
+    with ruta_detalle.open("w", encoding="utf-8") as archivo:
+        for numero in range(1, presupuesto + 1):
+            candidato = CromosomaGrafo()
+            candidato.generar_grafo_aleatorio(rng)
+            grafo = candidato.obtener_formato_profesor()
 
-        # 4. Evaluar con el paquete docente (Presupuesto de 100 expansiones por defecto)
-        # informe = evaluar(grafo_json, limite_expansiones=100)
+            try:
+                validar(grafo)
+            except ValueError as exc:
+                raise RuntimeError(
+                    f"Candidato inválido en el intento {numero}; revisar el código propio: {exc}"
+                ) from exc
 
-        # --- SIMULACIÓN DEL INFORME PARA ESTE EJEMPLO ---
-        # En tu código real, esto lo devuelve la función evaluar() del profesor
-        informe = {
-            "B1": {"verificacion": {"contraejemplo": False, "discrepancias": []}},
-            "U1": {"verificacion": {"contraejemplo": False, "discrepancias": []}},
-            "A1": {"verificacion": {"contraejemplo": False, "discrepancias": []}}
-        }
-        # ------------------------------------------------
+            clave = json.dumps(grafo, sort_keys=True, separators=(",", ":"))
+            claves_distintas.add(clave)
 
-        # 5. Revisar si los agentes devolvieron un contraejemplo confirmado
-        for agente, resultado in informe.items():
-            verificacion = resultado.get("verificacion", {})
+            try:
+                informe = evaluar(grafo, limite_expansiones=limite_expansiones)
+            except Exception as exc:
+                raise RuntimeError(
+                    f"Fallo de integración/evaluación en el candidato {numero}: {exc}"
+                ) from exc
 
-            # Si el profesor confirma que encontramos un defecto
-            if verificacion.get("contraejemplo") is True:
-                discrepancia = verificacion.get("discrepancias", [])
+            archivo.write(json.dumps({
+                "evaluacion": numero,
+                "grafo": grafo,
+                "informe": informe,
+            }, ensure_ascii=False) + "\n")
 
-                # Registramos en qué evaluación apareció el primer error
-                if primer_hallazgo is None:
-                    primer_hallazgo = {
-                        "agente_fallido": agente,
-                        "evaluacion_numero": evaluacion_actual,
-                        "tipo_error": discrepancia,
-                        "grafo": grafo_json
-                    }
-                    print(f"¡DEFECTO ENCONTRADO EN {agente}! (Evaluación {evaluacion_actual})")
-                    print(f"Error: {discrepancia}")
+            for agente in AGENTES:
+                resultado = informe[agente]["resultado"]
+                verificacion = informe[agente]["verificacion"]
+                estado = resultado["estado"]
 
-                    # No usamos 'break' aquí porque el requerimiento 7 exige consumir
-                    # el presupuesto completo o al menos seguir buscando otros errores.
+                if estado in ("limite", "error"):
+                    incidencias[agente][estado] += 1
+                elif verificacion["concluyente"] and verificacion["contraejemplo"]:
+                    hallazgos_acumulados[agente] += 1
+                    if primeros_hallazgos[agente] is None:
+                        primeros_hallazgos[agente] = {
+                            "evaluacion": numero,
+                            "grafo": grafo,
+                            "resultado": resultado,
+                            "verificacion": verificacion,
+                        }
 
-        # (Opcional) Aquí deberías calcular y guardar la "aptitud" de este grafo
-        # para tus gráficas de progreso, aunque en este método no uses esa aptitud para seleccionar.
+            if numero % 100 == 0 or numero == presupuesto:
+                progreso.append({
+                    "evaluaciones": numero,
+                    "grafos_distintos": len(claves_distintas),
+                    "hallazgos_acumulados": hallazgos_acumulados.copy(),
+                    "incidencias": {a: incidencias[a].copy() for a in AGENTES},
+                })
+                archivo.flush()
+                print(f"{numero}/{presupuesto} evaluaciones | "
+                      f"hallazgos B1={hallazgos_acumulados['B1']}, "
+                      f"U1={hallazgos_acumulados['U1']}, "
+                      f"A1={hallazgos_acumulados['A1']}")
 
-    # 6. Reporte final tras agotar el presupuesto de 1000
-    if primer_hallazgo:
-        print("Búsqueda finalizada: Se encontró al menos un contraejemplo.")
-    else:
-        print("Búsqueda finalizada: no encontrado.") # Requerimiento 9: honestidad sin inventar
+    resumen = {
+        "metodo": "aleatoria",
+        "semilla": semilla,
+        "presupuesto": presupuesto,
+        "limite_expansiones": limite_expansiones,
+        "probabilidad_arista": 0.3,
+        "rango_costos": [1, 9],
+        "evaluaciones_consumidas": presupuesto,
+        "grafos_distintos": len(claves_distintas),
+        "hallazgos_confirmados": hallazgos_acumulados,
+        "primer_hallazgo_por_agente": primeros_hallazgos,
+        "incidencias": incidencias,
+        "progreso": progreso,
+        "tiempo_segundos": round(time.perf_counter() - inicio, 3),
+    }
+    ruta_resumen.write_text(json.dumps(resumen, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    return primer_hallazgo
+    print(f"\nRegistros guardados: {ruta_detalle} y {ruta_resumen}")
+    for agente in AGENTES:
+        hallazgo = primeros_hallazgos[agente]
+        print(f"{agente}: evaluación {hallazgo['evaluacion']}" if hallazgo else
+              f"{agente}: no encontrado")
+    return resumen
 
 
-# Ejecutar el experimento con la primera semilla exigida
-# resultado_semilla_11 = ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000)
-
-# --- PRUEBA DEL CÓDIGO ---
-# Creamos tu individuo
-mi_individuo = CromosomaGrafo()
-mi_individuo.generar_grafo_aleatorio()
-
-# Lo traducimos
-grafo_para_evaluar = mi_individuo.obtener_formato_profesor()
-
-# Así se ve lo que le vas a mandar al código de tu profesor:
-print(json.dumps(grafo_para_evaluar, indent=2))
+if __name__ == "__main__":
+    ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000)
