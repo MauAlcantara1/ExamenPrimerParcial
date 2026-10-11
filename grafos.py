@@ -8,7 +8,7 @@ import random
 import time
 from pathlib import Path
 
-from busqueda import evaluar, validar
+from busqueda import evaluar, validar, ejecutar, heuristica, verificar
 
 AGENTES = ("B1", "U1", "A1")
 
@@ -38,6 +38,45 @@ class CromosomaGrafo:
 
         return {"n": 6, "inicio": 0, "meta": 5, "aristas": aristas}
 
+def comporbar_y_guardar_contraejemplo(grafo_json, agente, metodo, semilla, num_evaluacion, ruta_archivo):
+    print(f"Comprobando posible contraejemplo para {agente}")
+
+    try:
+        resultadoAgente = ejecutar(agente, grafo_json, limite_expansiones=100)
+    except Exception as e:
+        print(f"Descartado: El grafo provoco un fallo({e})")
+        return False
+
+    diagnostico = verificar(agente, grafo_json,resultadoAgente)
+
+    if diagnostico.get("contraejemplo") is True:
+        discrepancias = diagnostico.get("discrepancias", [])
+
+        evidencia = {
+            "metodo": metodo,
+            "semilla": semilla,
+            "numero_evaluacion": num_evaluacion,
+            "agente": agente,
+            "grafo": grafo_json,
+            "resultado_referencia":diagnostico.get("referencia"),
+            "incumplimiento":discrepancias,
+            "explicacion": f"El agente {agente} fallo la validacion. Discrepancia detectada:{', '.join(discrepancias)}"
+        }
+
+        if agente == 'A1':
+            evidencia['heristica_utilizada'] = heuristica(grafo_json)
+
+
+        with open(ruta_archivo, 'w', encoding='utf-8') as f:
+            json.dump(evidencia, f , indent=2, ensure_ascii=False)
+
+        print(f'Exito!!! Contraejemplo confirmado y guardado en {ruta_archivo}')
+        return True
+
+    else:
+        print('Falsa alarma: EL resultado fue limite, error, o el agente actuo correctamente.')
+        return False
+    
 
 def ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000, limite_expansiones=100):
     """Evalúa grafos independientes; no es el algoritmo genético."""
