@@ -75,7 +75,6 @@ def comporbar_y_guardar_contraejemplo(grafo_json, agente, metodo, semilla, num_e
     else:
         print('Falsa alarma: EL resultado fue limite, error, o el agente actuo correctamente.')
         return False
-    
 
 def ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000, limite_expansiones=100):
     """Evalúa grafos independientes; no es el algoritmo genético."""
