@@ -1,0 +1,530 @@
+{
+  "metodo": "aleatoria",
+  "semilla": 33,
+  "presupuesto": 1000,
+  "limite_expansiones": 100,
+  "probabilidad_arista": 0.3,
+  "rango_costos": [
+    1,
+    9
+  ],
+  "evaluaciones_consumidas": 1000,
+  "grafos_distintos": 1000,
+  "hallazgos_confirmados": {
+    "B1": 5,
+    "U1": 27,
+    "A1": 30
+  },
+  "primer_hallazgo_por_agente": {
+    "B1": {
+      "evaluacion": 212,
+      "grafo": {
+        "n": 6,
+        "inicio": 0,
+        "meta": 5,
+        "aristas": [
+          [
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            4,
+            6
+          ],
+          [
+            1,
+            2,
+            7
+          ],
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            5,
+            4
+          ],
+          [
+            2,
+            5,
+            3
+          ],
+          [
+            3,
+            0,
+            1
+          ],
+          [
+            3,
+            4,
+            7
+          ],
+          [
+            3,
+            5,
+            7
+          ],
+          [
+            4,
+            1,
+            5
+          ],
+          [
+            5,
+            2,
+            1
+          ]
+        ]
+      },
+      "resultado": {
+        "estado": "solucion",
+        "ruta": [
+          0,
+          4,
+          1,
+          5
+        ],
+        "costo": 15,
+        "expansiones": 3,
+        "error": null
+      },
+      "verificacion": {
+        "contraejemplo": true,
+        "concluyente": true,
+        "discrepancias": [
+          "no_optimo"
+        ],
+        "referencia": {
+          "existe_ruta": true,
+          "distancia_minima_aristas": 2,
+          "costo_minimo": 4
+        }
+      }
+    },
+    "U1": {
+      "evaluacion": 76,
+      "grafo": {
+        "n": 6,
+        "inicio": 0,
+        "meta": 5,
+        "aristas": [
+          [
+            0,
+            3,
+            3
+          ],
+          [
+            0,
+            4,
+            5
+          ],
+          [
+            0,
+            5,
+            9
+          ],
+          [
+            1,
+            2,
+            4
+          ],
+          [
+            2,
+            5,
+            9
+          ],
+          [
+            3,
+            0,
+            6
+          ],
+          [
+            3,
+            2,
+            8
+          ],
+          [
+            4,
+            0,
+            4
+          ],
+          [
+            4,
+            5,
+            1
+          ],
+          [
+            5,
+            2,
+            8
+          ],
+          [
+            5,
+            4,
+            9
+          ]
+        ]
+      },
+      "resultado": {
+        "estado": "solucion",
+        "ruta": [
+          0,
+          5
+        ],
+        "costo": 9,
+        "expansiones": 1,
+        "error": null
+      },
+      "verificacion": {
+        "contraejemplo": true,
+        "concluyente": true,
+        "discrepancias": [
+          "no_optimo"
+        ],
+        "referencia": {
+          "existe_ruta": true,
+          "distancia_minima_aristas": 1,
+          "costo_minimo": 6
+        }
+      }
+    },
+    "A1": {
+      "evaluacion": 76,
+      "grafo": {
+        "n": 6,
+        "inicio": 0,
+        "meta": 5,
+        "aristas": [
+          [
+            0,
+            3,
+            3
+          ],
+          [
+            0,
+            4,
+            5
+          ],
+          [
+            0,
+            5,
+            9
+          ],
+          [
+            1,
+            2,
+            4
+          ],
+          [
+            2,
+            5,
+            9
+          ],
+          [
+            3,
+            0,
+            6
+          ],
+          [
+            3,
+            2,
+            8
+          ],
+          [
+            4,
+            0,
+            4
+          ],
+          [
+            4,
+            5,
+            1
+          ],
+          [
+            5,
+            2,
+            8
+          ],
+          [
+            5,
+            4,
+            9
+          ]
+        ]
+      },
+      "resultado": {
+        "estado": "solucion",
+        "ruta": [
+          0,
+          5
+        ],
+        "costo": 9,
+        "expansiones": 3,
+        "error": null
+      },
+      "verificacion": {
+        "contraejemplo": true,
+        "concluyente": true,
+        "discrepancias": [
+          "no_optimo"
+        ],
+        "referencia": {
+          "existe_ruta": true,
+          "distancia_minima_aristas": 1,
+          "costo_minimo": 6
+        }
+      }
+    }
+  },
+  "incidencias": {
+    "B1": {
+      "limite": 0,
+      "error": 0
+    },
+    "U1": {
+      "limite": 0,
+      "error": 0
+    },
+    "A1": {
+      "limite": 0,
+      "error": 0
+    }
+  },
+  "progreso": [
+    {
+      "evaluaciones": 100,
+      "grafos_distintos": 100,
+      "hallazgos_acumulados": {
+        "B1": 0,
+        "U1": 2,
+        "A1": 2
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 200,
+      "grafos_distintos": 200,
+      "hallazgos_acumulados": {
+        "B1": 0,
+        "U1": 4,
+        "A1": 4
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 300,
+      "grafos_distintos": 300,
+      "hallazgos_acumulados": {
+        "B1": 1,
+        "U1": 7,
+        "A1": 8
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 400,
+      "grafos_distintos": 400,
+      "hallazgos_acumulados": {
+        "B1": 3,
+        "U1": 9,
+        "A1": 10
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 500,
+      "grafos_distintos": 500,
+      "hallazgos_acumulados": {
+        "B1": 4,
+        "U1": 12,
+        "A1": 13
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 600,
+      "grafos_distintos": 600,
+      "hallazgos_acumulados": {
+        "B1": 4,
+        "U1": 16,
+        "A1": 17
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 700,
+      "grafos_distintos": 700,
+      "hallazgos_acumulados": {
+        "B1": 4,
+        "U1": 18,
+        "A1": 19
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 800,
+      "grafos_distintos": 800,
+      "hallazgos_acumulados": {
+        "B1": 4,
+        "U1": 21,
+        "A1": 23
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 900,
+      "grafos_distintos": 900,
+      "hallazgos_acumulados": {
+        "B1": 4,
+        "U1": 22,
+        "A1": 25
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    },
+    {
+      "evaluaciones": 1000,
+      "grafos_distintos": 1000,
+      "hallazgos_acumulados": {
+        "B1": 5,
+        "U1": 27,
+        "A1": 30
+      },
+      "incidencias": {
+        "B1": {
+          "limite": 0,
+          "error": 0
+        },
+        "U1": {
+          "limite": 0,
+          "error": 0
+        },
+        "A1": {
+          "limite": 0,
+          "error": 0
+        }
+      }
+    }
+  ],
+  "tiempo_segundos": 0.598
+}
