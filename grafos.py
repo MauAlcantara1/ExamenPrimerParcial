@@ -15,7 +15,6 @@ AGENTES = ("B1", "U1", "A1")
 
 class CromosomaGrafo:
     def __init__(self):
-        # Matriz dirigida de seis nodos. Cero significa ausencia de arista.
         self.matriz = [[0 for _ in range(6)] for _ in range(6)]
 
     def generar_grafo_aleatorio(self, rng=None):
@@ -179,6 +178,60 @@ def ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000, limite_expansion
         print(f"{agente}: evaluación {hallazgo['evaluacion']}" if hallazgo else
               f"{agente}: no encontrado")
     return resumen
+
+
+def evaluar_individuo(candidato, limite_expansiones=100):
+    """
+    Evalúa un cromosoma y devuelve información
+    para el algoritmo genético.
+    1 Recibe un cromosoma de la clase de cromosoma grafo
+    2- convierte el grafo al formato del profe
+    3 valida
+    4 evalua los distintos algoritmos
+    5 recopila resultados
+    6 devuelver informacion
+
+    puedes llamar la funcion con "from grafos import CromosomaGrafo, evaluar_individuo"
+    """
+
+    # Aqui transformamos la matriz de 6x6 al formato del profe
+    grafo = candidato.obtener_formato_profesor()
+
+    #aqui validamos los gragos
+    validar(grafo)
+
+    # Aqui ejecutamos los algoritmos del profe
+    informe = evaluar(
+        grafo,
+        limite_expansiones=limite_expansiones
+    )
+
+    # Aqui entra un concepto de la aptitud Carlos, muy poosiblemente tengas que cambiar esta parte pues no la entiendo que 
+    # y que vas a necesitar
+    resultados = {}
+
+    for agente in AGENTES:
+        datos = informe[agente]
+
+        resultado = datos["resultado"]
+        verificacion = datos["verificacion"]
+
+        resultados[agente] = {
+            "estado": resultado["estado"],
+            "concluyente": verificacion["concluyente"],
+            "contraejemplo": bool(
+                verificacion["concluyente"]
+                and verificacion["contraejemplo"]
+            ),
+            "discrepancias": verificacion["discrepancias"]
+        }
+
+    return {
+        "grafo": grafo,
+        "numero_aristas": len(grafo["aristas"]),
+        "resultados": resultados,
+        "informe_completo": informe
+    }
 
 
 if __name__ == "__main__":
