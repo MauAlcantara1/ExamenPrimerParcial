@@ -1,8 +1,8 @@
 import random
 import copy
 
-def calculoAmplitud (grafo, informe):
-    amplitud= 0.0
+def calculoAptitud (grafo, informe):
+    aptitud = 0.0
 
     for agente in ["B!", "U1", "A1"]:
         if agente not in informe: continue
@@ -12,18 +12,18 @@ def calculoAmplitud (grafo, informe):
         esContraejemplo = reporte["verificacion"].get("contraejemplo",False)
 
         if esContraejemplo == True:
-            amplitud += 1000
+            aptitud += 1000
         elif estado == "solucion":
-            amplitud += 3
+            aptitud += 3
         elif estado == "sin_solucion":
-            amplitud +=1
+            aptitud +=1
         elif estado == "limite":
-            amplitud -=5
+            aptitud -=5
 
     cantAristas = len(grafo.get("aristas",[]))
-    amplitud -= (cantAristas * 0.1)
+    aptitud -= (cantAristas * 0.1)
 
-    return amplitud
+    return aptitud
 
 def cruzar (grafoP1, grafoP2):
     hijo = {"n": 6, "inicio": 0, "meta": 5, "aristas": []}
@@ -47,7 +47,7 @@ def cruzar (grafoP1, grafoP2):
                 costo = aristasP2.get((u, v), 0)
 
             if costo > 0:
-                hijo["aristas"].appent([u, v, costo])
+                hijo["aristas"].append([u, v, costo])
 
     return hijo
 
@@ -56,11 +56,13 @@ def mutar(grafo, probMutacion = 0.15):
 
     mutado = copy.deepcopy(grafo)
 
+    """
     if random.random() < probMutacion:
         mutado["inicio"] = random.randint(0,5)
 
     if random.random() < probMutacion:
             mutado["meta"] = random.randint(0,5)
+    """
 
     if random.random() < probMutacion:
 
@@ -70,7 +72,7 @@ def mutar(grafo, probMutacion = 0.15):
 
             u, v = random.sample(range(6), 2)
             
-            costo = random.randint(0, 9)
+            costo = random.randint(1, 9)
 
             if not any(a[0] == u and a[1] == v for a in mutado["aristas"]):
                 mutado["aristas"].append([u, v, costo])
@@ -81,11 +83,11 @@ def mutar(grafo, probMutacion = 0.15):
 
             mutado["aristas"].pop(idx)
 
-        elif accion == "cambCosto" and len(mutado["arisras"]) > 0:
+        elif accion == "cambCosto" and len(mutado["aristas"]) > 0:
 
             idx = random.randrange(len(mutado["aristas"]))
 
-            mutado["aristas"][idx][2] = random.randint(0,9)
+            mutado["aristas"][idx][2] = random.randint(1,9)
 
     return mutado
 
