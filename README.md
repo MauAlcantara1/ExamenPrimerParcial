@@ -7,18 +7,9 @@ Proyecto de evaluación de agentes de búsqueda B1 (BFS), U1 (UCS) y A1 (A*) med
 - Donovan Amaury Alcantara Cruz
 - Martin Gabriel Ramirez Hilario
 - Carlos Alberto de la Cruz Castelan
-
 ## Comandos para correr todo
 
-python --version
-python -m unittest -v test_contrato
-python integracion.py
-python -m busqueda ejemplo.json --limite 100
-python grafos.py
-
-## Comandos para correr todo
-
-Abrir la terminal de VS Code en la carpeta `estudiantes/`, donde están `grafos.py`, `integracion.py` y `test_contrato.py`.
+Abrir la terminal de VS Code en la carpeta `estudiantes/`, donde se encuentran `grafos.py`, `integracion.py`, `test_contrato.py` y la carpeta `pruebas/`.
 
 ```powershell
 python --version
@@ -26,6 +17,7 @@ python -m unittest -v test_contrato
 python integracion.py
 python -m busqueda ejemplo.json --limite 100
 python grafos.py
+python -m unittest discover -s pruebas -p "test_grafos.py" -v
 ```
 
 ### ¿Qué hace cada comando?
@@ -33,10 +25,35 @@ python grafos.py
 | Comando | Propósito |
 |---|---|
 | `python --version` | Consultar la versión de Python utilizada. |
-| `python -m unittest -v test_contrato` | Ejecutar las pruebas de contrato suministradas por el profesor. |
+| `python -m unittest -v test_contrato` | Ejecutar las seis pruebas de contrato suministradas por el profesor. |
 | `python integracion.py` | Generar un grafo de prueba, validarlo y consultar los resultados de B1, U1 y A1. |
-| `python -m busqueda ejemplo.json --limite 100` | Ejecutar el ejemplo incluido en el paquete docente con límite de 100 expansiones. |
-| `python grafos.py` | Ejecutar la línea base aleatoria actual: 1,000 evaluaciones con semilla 11. |
+| `python -m busqueda ejemplo.json --limite 100` | Ejecutar el ejemplo incluido en el paquete docente con un límite de 100 expansiones. |
+| `python grafos.py` | Ejecutar la línea base aleatoria según la configuración del archivo. |
+| `python -m unittest discover -s pruebas -p "test_grafos.py" -v` | Ejecutar las 14 pruebas automatizadas desarrolladas para el proyecto. |
+
+### Pruebas automatizadas propias
+
+Se desarrollaron 14 pruebas automatizadas utilizando la biblioteca `unittest` de Python, organizadas en tres categorías:
+
+- **Representación y validez (5 pruebas):** comprueban la matriz de adyacencia, la conversión al formato docente, la generación de grafos válidos, los grafos desconectados y la reproducibilidad de candidatos.
+- **Evaluación semántica (7 pruebas):** verifican la clasificación de rutas correctas e incorrectas, costos declarados, soluciones alternativas y estados sin solución, límite o error.
+- **Presupuesto y reproducibilidad (2 pruebas):** comprueban el número exacto de evaluaciones y la repetición de resultados utilizando una semilla fija.
+
+Las 14 pruebas se ejecutaron satisfactoriamente en el entorno local, sin fallos.
+
+### Generación de evidencia textual
+
+Para ejecutar las pruebas propias y guardar el resultado en un archivo de texto, utilizar:
+
+```powershell
+cmd /c "python -m unittest discover -s pruebas -p test_grafos.py -v 2>&1" | Tee-Object -FilePath pruebas\evidencia_pruebas.txt
+```
+
+La evidencia se almacena en:
+
+`pruebas/evidencia_pruebas.txt`
+
+Este archivo contiene los nombres de las pruebas ejecutadas y sus resultados, permitiendo comprobar que finalizaron correctamente.
 
 ## Versión 3.14.6
 
