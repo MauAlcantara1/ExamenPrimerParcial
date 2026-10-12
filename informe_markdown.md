@@ -19,7 +19,14 @@ Finalmente, se utiliza la función `validar()` del paquete docente para comproba
 
 ## 3. Aptitud y operadores del algoritmo genético
 
+Para la asignacion de la aptitud de cada individuo se tomaron en cuenta los 4 estados que puede tener cada algoritmo de busqueda utilizado en el grado (B1, U1, A1) y si estos son contraejemplos o no.
+Si es grafo es un contraejemplo se le dan 1000 puntos ya que este es el mejor caso.
+Si el grafo tiene solucion se le dan 3 puntos.
+Si el grado no tiene solucion se le da 1 punto.
+Si el grafo llego a su limite se le quitan 5 puntos
+Para asegurar que haya simplicidad se le restan 0.1 puntos por cada arista que tenga el grafo
 
+Teniendo las aptitudes de cada grafo empezamos por utilizar esta misma para ir seleccionando a los mejores candidatos para cruzarlos y obtener un hijo de estos, para evitar que se pierdan genes o que el algoritmo se estanque con los mismos se mutan ligeramente las caracterizticas de cada hijo.
 
 ## 4. Línea base aleatoria y reproducibilidad 
 

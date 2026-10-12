@@ -1,8 +1,8 @@
 import random
 import copy
 
-def calculoAmplitud (grafo, informe):
-    amplitud= 0.0
+def calculoAptitud (grafo, informe):
+    aptitud = 0.0
 
     for agente in ["B!", "U1", "A1"]:
         if agente not in informe: continue
@@ -12,18 +12,18 @@ def calculoAmplitud (grafo, informe):
         esContraejemplo = reporte["verificacion"].get("contraejemplo",False)
 
         if esContraejemplo == True:
-            amplitud += 1000
+            aptitud += 1000
         elif estado == "solucion":
-            amplitud += 3
+            aptitud += 3
         elif estado == "sin_solucion":
-            amplitud +=1
+            aptitud +=1
         elif estado == "limite":
-            amplitud -=5
+            aptitud -=5
 
     cantAristas = len(grafo.get("aristas",[]))
-    amplitud -= (cantAristas * 0.1)
+    aptitud -= (cantAristas * 0.1)
 
-    return amplitud
+    return aptitud
 
 def cruzar (grafoP1, grafoP2):
     hijo = {"n": 6, "inicio": 0, "meta": 5, "aristas": []}
