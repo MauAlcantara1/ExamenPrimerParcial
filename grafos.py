@@ -233,10 +233,11 @@ def evaluar_individuo(candidato, limite_expansiones=100):
     }
 
 
+
+
 if __name__ == "__main__":
     semillasExigidas= [11,22,33,44,55]
 
-    ejecutar_linea_base_aleatoria(semilla=11, presupuesto=1000)
     print("INICIANDO LINEA BASE ALEATORIA")
     print("=" * 50)
     for semillaActual in semillasExigidas:

@@ -1,0 +1,96 @@
+{
+  "metodo": "aleatoria",
+  "semilla": 11,
+  "numero_evaluacion": 43,
+  "agente": "A1",
+  "grafo": {
+    "n": 6,
+    "inicio": 0,
+    "meta": 5,
+    "aristas": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2,
+        6
+      ],
+      [
+        0,
+        5,
+        9
+      ],
+      [
+        1,
+        0,
+        2
+      ],
+      [
+        1,
+        5,
+        3
+      ],
+      [
+        2,
+        3,
+        6
+      ],
+      [
+        3,
+        0,
+        7
+      ],
+      [
+        3,
+        5,
+        7
+      ],
+      [
+        4,
+        2,
+        6
+      ],
+      [
+        4,
+        5,
+        7
+      ],
+      [
+        5,
+        1,
+        6
+      ]
+    ]
+  },
+  "resultado_referencia": {
+    "existe_ruta": true,
+    "distancia_minima_aristas": 1,
+    "costo_minimo": 5
+  },
+  "resultado_objetivo": {
+    "estado": "solucion",
+    "ruta": [
+      0,
+      5
+    ],
+    "costo": 9,
+    "expansiones": 3,
+    "error": null
+  },
+  "discrepancias": [
+    "no_optimo"
+  ],
+  "explicacion": "A1 devolvió un costo de 9, pero el costo mínimo es 5.",
+  "reproduccion": "Coincide con el registro original",
+  "heuristica_utilizada": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

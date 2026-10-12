@@ -1,0 +1,100 @@
+{
+  "metodo": "aleatoria",
+  "semilla": 11,
+  "numero_evaluacion": 2,
+  "agente": "U1",
+  "grafo": {
+    "n": 6,
+    "inicio": 0,
+    "meta": 5,
+    "aristas": [
+      [
+        0,
+        1,
+        9
+      ],
+      [
+        1,
+        0,
+        5
+      ],
+      [
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        5,
+        7
+      ],
+      [
+        3,
+        2,
+        4
+      ],
+      [
+        3,
+        5,
+        2
+      ],
+      [
+        4,
+        1,
+        7
+      ],
+      [
+        4,
+        3,
+        4
+      ],
+      [
+        5,
+        0,
+        8
+      ],
+      [
+        5,
+        2,
+        9
+      ],
+      [
+        5,
+        3,
+        9
+      ],
+      [
+        5,
+        4,
+        3
+      ]
+    ]
+  },
+  "resultado_referencia": {
+    "existe_ruta": true,
+    "distancia_minima_aristas": 3,
+    "costo_minimo": 17
+  },
+  "resultado_objetivo": {
+    "estado": "solucion",
+    "ruta": [
+      0,
+      1,
+      2,
+      5
+    ],
+    "costo": 18,
+    "expansiones": 3,
+    "error": null
+  },
+  "discrepancias": [
+    "no_optimo"
+  ],
+  "explicacion": "U1 devolvió un costo de 18, pero el costo mínimo es 17.",
+  "reproduccion": "Coincide con el registro original"
+}

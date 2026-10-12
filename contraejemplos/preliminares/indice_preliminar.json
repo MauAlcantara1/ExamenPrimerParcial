@@ -1,0 +1,29 @@
+[
+  {
+    "archivo": "B1_semilla_11_eval_0188.json",
+    "agente": "B1",
+    "semilla": 11,
+    "evaluacion": 188,
+    "discrepancias": [
+      "no_optimo"
+    ]
+  },
+  {
+    "archivo": "U1_semilla_11_eval_0002.json",
+    "agente": "U1",
+    "semilla": 11,
+    "evaluacion": 2,
+    "discrepancias": [
+      "no_optimo"
+    ]
+  },
+  {
+    "archivo": "A1_semilla_11_eval_0043.json",
+    "agente": "A1",
+    "semilla": 11,
+    "evaluacion": 43,
+    "discrepancias": [
+      "no_optimo"
+    ]
+  }
+]

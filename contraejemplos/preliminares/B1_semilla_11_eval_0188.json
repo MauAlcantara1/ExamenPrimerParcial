@@ -1,0 +1,90 @@
+{
+  "metodo": "aleatoria",
+  "semilla": 11,
+  "numero_evaluacion": 188,
+  "agente": "B1",
+  "grafo": {
+    "n": 6,
+    "inicio": 0,
+    "meta": 5,
+    "aristas": [
+      [
+        0,
+        2,
+        8
+      ],
+      [
+        0,
+        3,
+        4
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        5,
+        9
+      ],
+      [
+        2,
+        3,
+        7
+      ],
+      [
+        2,
+        5,
+        6
+      ],
+      [
+        3,
+        4,
+        7
+      ],
+      [
+        4,
+        0,
+        2
+      ],
+      [
+        4,
+        2,
+        7
+      ],
+      [
+        4,
+        5,
+        2
+      ],
+      [
+        5,
+        1,
+        4
+      ]
+    ]
+  },
+  "resultado_referencia": {
+    "existe_ruta": true,
+    "distancia_minima_aristas": 2,
+    "costo_minimo": 13
+  },
+  "resultado_objetivo": {
+    "estado": "solucion",
+    "ruta": [
+      0,
+      3,
+      4,
+      5
+    ],
+    "costo": 13,
+    "expansiones": 3,
+    "error": null
+  },
+  "discrepancias": [
+    "no_optimo"
+  ],
+  "explicacion": "B1 devolvió una ruta con 3 aristas, pero la referencia establece un mínimo de 2.",
+  "reproduccion": "Coincide con el registro original"
+}

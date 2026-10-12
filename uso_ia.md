@@ -1,12 +1,17 @@
 # Declaración de Uso de Inteligencia Artificial
 
 **Proyecto:** Cazador Genético (Laboratorio de Contraejemplos)
-**Equipo:** [Identificador de tu equipo / Nombres de los integrantes]
+**Equipo:** Camarones
+**Integrantes** 
+
+- Donovan Amaury Alcantara Cruz
+- Martin Gabriel Ramirez Hilario
+- Carlos Alberto de la Cruz Castelan
 
 ## 1. Herramienta y Modelo
 Se utilizó asistencia de Inteligencia Artificial durante el desarrollo de este proyecto.
-- **Herramienta:** Google Gemini
-- **Modelo:** Gemini (Contexto de conversación continua)
+- **Herramienta:** Martin: Google Gemini, Mau: CHATGPT 
+- **Modelo:** Gemini (Contexto de conversación continua), CHATGPT (Ayuda teorica y conceptos)
 
 ## 2. Finalidad del uso
 La IA fue utilizada estrictamente como "compañero de programación" (pair programming) y tutor conceptual para:
@@ -32,3 +37,9 @@ A continuación, un resumen de los prompts (consultas) clave utilizados para gui
 * *"Ayúdame a diseñar la Función de Aptitud (Requerimiento 3). ¿Cómo le doy una calificación numérica a un grafo basándome en el informe que devuelve el código del profesor?"*
 * *"¿Cómo programamos ahora la Selección, el Cruzamiento y la Mutación (Requerimiento 2) para el Algoritmo Genético?"*
 * *"De todos los grafos, necesito comprobar los errores que tenemos y no pasarlos mal. ¿Cómo hago una función fuera de la clase para comprobarlos?"*
+
+* *Revisión de errores y lazos: "¿Puedes revisar los ciclos de mi generador de grafos para detectar errores y comprobar que no se generen lazos entre un nodo y él mismo?"**
+
+* *Comprensión del flujo: "¿Cómo funciona el proceso desde la generación y validación de grafos hasta su evaluación con BFS, UCS y A*, y cómo se conecta con el algoritmo genético?"**
+
+* *Conceptos del algoritmo genético: "¿Qué son los cromosomas, la población, la función de aptitud, la selección, el cruzamiento y la mutación, y qué papel tienen en nuestro proyecto?"**
