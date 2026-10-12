@@ -47,7 +47,7 @@ def cruzar (grafoP1, grafoP2):
                 costo = aristasP2.get((u, v), 0)
 
             if costo > 0:
-                hijo["aristas"].appent([u, v, costo])
+                hijo["aristas"].append([u, v, costo])
 
     return hijo
 
@@ -56,11 +56,13 @@ def mutar(grafo, probMutacion = 0.15):
 
     mutado = copy.deepcopy(grafo)
 
+    """
     if random.random() < probMutacion:
         mutado["inicio"] = random.randint(0,5)
 
     if random.random() < probMutacion:
             mutado["meta"] = random.randint(0,5)
+    """
 
     if random.random() < probMutacion:
 
@@ -70,7 +72,7 @@ def mutar(grafo, probMutacion = 0.15):
 
             u, v = random.sample(range(6), 2)
             
-            costo = random.randint(0, 9)
+            costo = random.randint(1, 9)
 
             if not any(a[0] == u and a[1] == v for a in mutado["aristas"]):
                 mutado["aristas"].append([u, v, costo])
@@ -81,11 +83,11 @@ def mutar(grafo, probMutacion = 0.15):
 
             mutado["aristas"].pop(idx)
 
-        elif accion == "cambCosto" and len(mutado["arisras"]) > 0:
+        elif accion == "cambCosto" and len(mutado["aristas"]) > 0:
 
             idx = random.randrange(len(mutado["aristas"]))
 
-            mutado["aristas"][idx][2] = random.randint(0,9)
+            mutado["aristas"][idx][2] = random.randint(1,9)
 
     return mutado
 
